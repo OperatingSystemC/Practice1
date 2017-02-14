@@ -14,7 +14,7 @@ void add_reg(){
   struct Animal Animal1;
 
   printf("Ingresa los siguientes datos:\nNombre: ");
-  scanf("%31s", Animal1.nombre);
+  scanf("%s", Animal1.nombre);
   printf("Tipo: ");
   scanf("%31s", Animal1.tipo);
   printf("Edad: ");
