@@ -11,23 +11,25 @@ struct Animal {
 };
 
 void add_reg(){
-  struct Animal nada;
+
+  struct Animal Animal2;
 
   printf("Ingresa los siguientes datos:\nNombre: ");
-  scanf("%s", nada.nombre);
+  scanf("%s", Animal2.nombre);
   printf("Tipo: ");
-  scanf("%s", nada.tipo);
+  scanf("%s", Animal2.tipo);
   printf("Edad: ");
-  scanf("%d", &nada.edad);
+  scanf("%d", &Animal2.edad);
   printf("Raza: ");
-  scanf("%s", nada.raza);
+  scanf("%s", Animal2.raza);
   printf("Estatura: ");
-  scanf("%d", &nada.estatura);
+  scanf("%d", &Animal2.estatura);
   printf("Peso: ");
-  scanf("%f", &nada.peso);
+  scanf("%f", &Animal2.peso);
   printf("Sexo: ");
-  scanf("%c", &nada.sexo);
-  
+  scanf("%c", &Animal2.sexo);
+ 
+
 };
 
 int main(){
