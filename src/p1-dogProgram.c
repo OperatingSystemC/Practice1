@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <string.h>
 
 struct Animal {
   char    nombre[32];
@@ -10,36 +11,45 @@ struct Animal {
   char    sexo;
 };
 
-void add_reg(){
-
-  struct Animal Animal2;
-
+struct Animal* add_reg(struct Animal* NuevoAnimal){
+  char sexo;
   printf("Ingresa los siguientes datos:\nNombre: ");
-  scanf("%s", Animal2.nombre);
+  scanf("%s", &NuevoAnimal->nombre);
   printf("Tipo: ");
-  scanf("%s", Animal2.tipo);
+  scanf("%s", &NuevoAnimal->tipo);
   printf("Edad: ");
-  scanf("%d", &Animal2.edad);
+  scanf("%d", &NuevoAnimal->edad);
   printf("Raza: ");
-  scanf("%s", Animal2.raza);
+  scanf("%s", &NuevoAnimal->raza);
   printf("Estatura: ");
-  scanf("%d", &Animal2.estatura);
+  scanf("%d", &NuevoAnimal->estatura);
   printf("Peso: ");
-  scanf("%f", &Animal2.peso);
+  scanf("%e", &NuevoAnimal->peso);
   printf("Sexo: ");
-  scanf("%c", &Animal2.sexo);
- 
-
+  scanf("%s", &sexo);
+  if (!strpbrk(&sexo, "mMhH")){
+    printf("Sexo inválido");
+    struct Animal* Basura;
+    return Basura;
+  }
+  NuevoAnimal->sexo = sexo;
+  return NuevoAnimal;
 };
 
-int main(){
+void main(){
   while(1){
+    FILE *writeable;
     int opcion;
+    struct Animal* Animalito;
     printf("\n1. Ingresar registro\n2. Ver registro\n3. Borrar registro\n4. Buscar registro\n5. Salir\n");
     scanf("%d", &opcion);
     switch(opcion) {
       case 1:
-        add_reg();
+        Animalito = add_reg(Animalito);
+        /*writeable = fopen("animales.txt", "wb");
+        int tam;
+        tam = fwrite(&Animalito, 1, sizeof(struct Animal), writeable);
+        fclose(writeable);*/
         break;
       case 2:
         
@@ -51,7 +61,8 @@ int main(){
         
         break;
       case 5:
-        return 1;
+        return;
     }
   }
 };
+;
