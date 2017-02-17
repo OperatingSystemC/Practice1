@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 
 struct Animal {
@@ -41,15 +42,15 @@ void main(){
     FILE *writeable;
     int opcion;
     struct Animal* Animalito;
+    Animalito = malloc(sizeof(Animalito));
     printf("\n1. Ingresar registro\n2. Ver registro\n3. Borrar registro\n4. Buscar registro\n5. Salir\n");
     scanf("%d", &opcion);
     switch(opcion) {
       case 1:
         Animalito = add_reg(Animalito);
-        /*writeable = fopen("animales.txt", "wb");
-        int tam;
-        tam = fwrite(&Animalito, 1, sizeof(struct Animal), writeable);
-        fclose(writeable);*/
+        writeable = fopen("animales.dat", "w+");
+        int tam = fwrite(&Animalito, 1, sizeof(struct Animal), writeable);
+        fclose(writeable);
         break;
       case 2:
         
@@ -63,6 +64,7 @@ void main(){
       case 5:
         return;
     }
+    free(Animalito);
   }
 };
 ;
