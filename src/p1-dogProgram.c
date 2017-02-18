@@ -49,21 +49,23 @@ void ingresarRegistro() {
   animal_nuevo = malloc(sizeof(*animal_nuevo));
   leerAnimal(animal_nuevo);
 
-  FILE* dataFile = fopen("animales.dat", "r+");
-  fscanf(dataFile, "%d", &num);
+  FILE* dataFile = fopen("bin/animales.dat", "r+");
+  //fscanf(dataFile, "%d", &num);
+  fread(&num, sizeof(int), 1, dataFile);
   if(num >= 0){
     num++;
   } else {
     num = 1;
   }
   fseek(dataFile, 0, SEEK_SET);
-  fprintf(dataFile, "%d\n", num);
+  fwrite(&num, sizeof(int), 1, dataFile);
+  //fprintf(dataFile, "%d\n", num);
   fclose(dataFile);
-  dataFile = fopen("animales.dat", "a");
+  dataFile = fopen("bin/animales.bin", "a");
   fseek(dataFile, 0, SEEK_END);
-  fprintf(dataFile, "%s %s %d %s %d %f %c\n", &animal_nuevo->nombre, &animal_nuevo->tipo, animal_nuevo->edad, &animal_nuevo->raza, animal_nuevo->estatura, animal_nuevo->peso, animal_nuevo->sexo);
-  fclose(dataFile);
-
+  fwrite(animal_nuevo, sizeof(struct Animal), 1, dataFile);
+  //fprintf(dataFile, "%s %s %d %s %d %f %c\n", &animal_nuevo->nombre, &animal_nuevo->tipo, animal_nuevo->edad, &animal_nuevo->raza, animal_nuevo->estatura, animal_nuevo->peso, animal_nuevo->sexo);
+  fclose(dataFile); 
   free(animal_nuevo);
 };
 
@@ -72,7 +74,7 @@ void verRegistro(){
   printf("Indique el número de registro correspondiente al animal que desea ver: ");
   scanf("%i", &num);
   char line[150];
-  FILE* dataFile = fopen("animales.dat", "r");  
+  FILE* dataFile = fopen("bin/animales.dat", "r");  
   cantidad = atoi(fgets(line, 150, dataFile));
   if(cantidad >= num){
     while (num>0){
@@ -94,7 +96,7 @@ void verRegistro(){
     char *sexo = strtok(NULL, " ");
     printf("Sexo: \t%s", sexo);
   } else {
-    printf("El registro no existe");
+    printf("El registro no existe\n");
   }  
   fclose(dataFile);
 };
