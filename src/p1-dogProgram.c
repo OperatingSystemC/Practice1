@@ -52,7 +52,8 @@ void ingresarRegistro() {
   FILE* dataFile = fopen("bin/animales.dat", "r+");
   //fscanf(dataFile, "%d", &num);
   fread(&num, sizeof(int), 1, dataFile);
-  if(num >= 0){
+  printf("%d",num );
+  if(num > 0){
     num++;
   } else {
     num = 1;
@@ -61,43 +62,35 @@ void ingresarRegistro() {
   fwrite(&num, sizeof(int), 1, dataFile);
   //fprintf(dataFile, "%d\n", num);
   fclose(dataFile);
-  dataFile = fopen("bin/animales.bin", "a");
+  dataFile = fopen("bin/animales.dat", "a");
   fseek(dataFile, 0, SEEK_END);
   fwrite(animal_nuevo, sizeof(struct Animal), 1, dataFile);
-  //fprintf(dataFile, "%s %s %d %s %d %f %c\n", &animal_nuevo->nombre, &animal_nuevo->tipo, animal_nuevo->edad, &animal_nuevo->raza, animal_nuevo->estatura, animal_nuevo->peso, animal_nuevo->sexo);
+  
   fclose(dataFile); 
   free(animal_nuevo);
 };
 
 void verRegistro(){
   int num = 0, cantidad = 0;
-  printf("Indique el número de registro correspondiente al animal que desea ver: ");
-  scanf("%i", &num);
-  char line[150];
+
+  struct Animal *animal_ext;
+
+  animal_ext = malloc(sizeof(*animal_ext));
   FILE* dataFile = fopen("bin/animales.dat", "r");  
-  cantidad = atoi(fgets(line, 150, dataFile));
+  fread(&cantidad, sizeof(int), 1, dataFile);
+
+  printf("numero de registros existentes es %d, indique el número de registro correspondiente al animal que desea ver: ",cantidad);
+  scanf("%i", &num);
+  num--;
+
   if(cantidad >= num){
-    while (num>0){
-      fgets(line, 150, dataFile);
-      num--;
-    }
-    char *nombre = strtok(line, " ");
-    printf("Nombre: %s\n", nombre);
-    char *tipo = strtok(NULL, " ");
-    printf("Tipo: \t%s\n", tipo);
-    char *edad = strtok(NULL, " ");
-    printf("Edad: \t%s\n", edad);
-    char *raza = strtok(NULL, " ");
-    printf("Raza: \t%s\n", raza);
-    char *estatura = strtok(NULL, " ");
-    printf("Estatura: %s\n", estatura);
-    char *peso = strtok(NULL, " ");
-    printf("Peso: \t%s\n", peso);
-    char *sexo = strtok(NULL, " ");
-    printf("Sexo: \t%s", sexo);
+    fseek(dataFile, sizeof(struct Animal) * num+4, SEEK_SET);
+    fread(animal_ext, sizeof(struct Animal), 1, dataFile);
+    printf("%s", &animal_ext->nombre);
   } else {
     printf("El registro no existe\n");
-  }  
+  }
+  free(animal_ext);  
   fclose(dataFile);
 };
 
