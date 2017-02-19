@@ -86,7 +86,12 @@ void verRegistro(){
   if(cantidad >= num){
     fseek(dataFile, sizeof(struct Animal) * num+4, SEEK_SET);
     fread(animal_ext, sizeof(struct Animal), 1, dataFile);
-    printf("%s", &animal_ext->nombre);
+    fclose(dataFile);
+    
+    dataFile = fopen("bin/historia_clinica/%s_%s_%s.txt",animal_ext -> nombre, animal_ext -> tipo, animal_ext -> raza, "w");
+    fprintf(dataFile, "%s %s %d %s %d %f %c\n notas: ", animal_ext -> nombre, animal_ext -> tipo,
+      animal_ext -> edad, animal_ext -> raza, animal_ext -> estatura, animal_ext -> peso, animal_ext -> sexo);
+
   } else {
     printf("El registro no existe\n");
   }
