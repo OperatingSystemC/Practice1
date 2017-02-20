@@ -52,7 +52,6 @@ void ingresarRegistro() {
   FILE* dataFile = fopen("bin/animales.dat", "r+");
   //fscanf(dataFile, "%d", &num);
   fread(&num, sizeof(int), 1, dataFile);
-  printf("%d",num );
   if(num > 0){
     num++;
   } else {
@@ -74,29 +73,41 @@ void verRegistro(){
   int num = 0, cantidad = 0;
 
   struct Animal *animal_ext;
-
   animal_ext = malloc(sizeof(*animal_ext));
-  FILE* dataFile = fopen("bin/animales.dat", "r");  
+
+  FILE* dataFile = fopen("bin/animales.dat", "r");
   fread(&cantidad, sizeof(int), 1, dataFile);
 
   printf("numero de registros existentes es %d, indique el número de registro correspondiente al animal que desea ver: ",cantidad);
   scanf("%i", &num);
   num--;
-
+  fclose(dataFile);
   if(cantidad >= num){
+    dataFile = fopen("bin/animales.dat", "r");
     fseek(dataFile, sizeof(struct Animal) * num+4, SEEK_SET);
     fread(animal_ext, sizeof(struct Animal), 1, dataFile);
     fclose(dataFile);
-    
-    dataFile = fopen("bin/historia_clinica/%s_%s_%s.txt",animal_ext -> nombre, animal_ext -> tipo, animal_ext -> raza, "w");
-    fprintf(dataFile, "%s %s %d %s %d %f %c\n notas: ", animal_ext -> nombre, animal_ext -> tipo,
-      animal_ext -> edad, animal_ext -> raza, animal_ext -> estatura, animal_ext -> peso, animal_ext -> sexo);
 
+    FILE* historia_clinica;
+    char* direccion = "bin/historia_clinica/" ; 
+    char* extension = ".txt";
+    char fileSpec[strlen(direccion)+strlen(animal_ext -> nombre)+strlen(animal_ext->tipo)+strlen(animal_ext->raza)+strlen(extension)+3];
+
+    snprintf(fileSpec, sizeof( fileSpec ), "%s%s_%s_%s%s", direccion, animal_ext -> nombre, animal_ext -> tipo, animal_ext -> raza, extension);    
+
+    historia_clinica = fopen(fileSpec, "w");
+    fprintf(historia_clinica, "%s %s %d %s %d %f %c\n notas: ", animal_ext -> nombre, animal_ext -> tipo, animal_ext -> edad, animal_ext -> raza, animal_ext -> estatura, animal_ext -> peso, animal_ext -> sexo);
+
+    fclose(historia_clinica);
+
+
+    char nano[strlen(fileSpec)+6];
+    snprintf(nano, sizeof( nano ), "nano %s", fileSpec);
+    system(nano);
   } else {
     printf("El registro no existe\n");
   }
-  free(animal_ext);  
-  fclose(dataFile);
+  free(animal_ext);
 };
 
 
