@@ -96,7 +96,7 @@ void verRegistro(){
     snprintf(fileSpec, sizeof( fileSpec ), "%s%s_%s_%s%s", direccion, animal_ext -> nombre, animal_ext -> tipo, animal_ext -> raza, extension);    
 
     historia_clinica = fopen(fileSpec, "w");
-    fprintf(historia_clinica, "%s %s %d %s %d %f %c\n notas: ", animal_ext -> nombre, animal_ext -> tipo, animal_ext -> edad, animal_ext -> raza, animal_ext -> estatura, animal_ext -> peso, animal_ext -> sexo);
+    fprintf(historia_clinica, " Nombre: %s\n Tipo: %s\n Edad: %d\n Raza: %s\n Estatura: %d\n Peso: %f\n Sexo: %c\n Notas: ", animal_ext -> nombre, animal_ext -> tipo, animal_ext -> edad, animal_ext -> raza, animal_ext -> estatura, animal_ext -> peso, animal_ext -> sexo);
 
     fclose(historia_clinica);
 

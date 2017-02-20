@@ -1,0 +1,8 @@
+Nombre: alicio
+ Tipo: peroo
+ Edad: 45
+ Raza: bul
+ Estatura: 120
+ Peso: 55.000000
+ Sexo: M
+ Notas: 
