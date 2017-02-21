@@ -1,3 +1,0 @@
-atom loro 55 oro 45 152.000000 M
- notas: hola
- 

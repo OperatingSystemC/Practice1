@@ -1,0 +1,8 @@
+ Nombre: Carlos
+ Tipo: Marciano
+ Edad: 150
+ Raza: Cabeciamarilla
+ Estatura: 170
+ Peso: 30.000000
+ Sexo: M
+ Notas: 

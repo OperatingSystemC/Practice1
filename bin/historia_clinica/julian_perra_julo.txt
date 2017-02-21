@@ -1,8 +1,0 @@
- Nombre: julian
- Tipo: perra
- Edad: 17
- Raza: julo
- Estatura: 45
- Peso: 25.000000
- Sexo: H
- Notas: 
