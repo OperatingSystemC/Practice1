@@ -186,7 +186,7 @@ void verRegistro(){
     } else {
       // Leemos el número de registro a consultar
       printf("El número de registros existentes es %d, indique el número de registro correspondiente al animal que desea ver: ", registros);
-      scanf("%i", &numReg);
+      scanf("%d", &numReg);
       // Verificamos que sea un registro válido
       if(registros < numReg || numReg <= 0){
         printf("El registro no existe\n");
@@ -234,6 +234,63 @@ void verRegistro(){
   }
   confirmacion();
 };
+
+
+void buscarRegistro(){
+   
+    // reservamos el espacio donde vamos a guardar los datos leidos.
+    struct dogType *animal_buscado;
+    animal_buscado = malloc( sizeof( *animal_buscado ) );
+    //Abrimos el archivo para leer el número de registros existentes.
+    int numReg, encontro=0;
+
+    FILE * dataFile = fopen( "bin/dataDogs.dat", "r" );
+    
+
+    
+    fread(&numReg, sizeof(int), 1, dataFile);
+    printf( "%d\n", numReg);
+    
+    char nombre[32];
+    printf( "Por favor ingrese el nombre: " );
+    scanf( "%s", &nombre );
+
+    
+    for( int i = 0; i < numReg; i++){
+
+        fseek(dataFile, sizeof(struct dogType)*i+4 , SEEK_SET);
+        fread(animal_buscado, sizeof(struct dogType), 1, dataFile);
+        
+        if(nombre[0] == animal_buscado->nombre[0]){
+
+            int contador_char=0;
+            
+            for(int k=0;k<strlen(nombre);k++){
+                if(nombre[k] == animal_buscado -> nombre[k]){
+                    contador_char++;
+                }
+            }
+            if (strlen(animal_buscado -> nombre)==strlen(nombre) && contador_char==strlen(animal_buscado -> nombre)){//se verifica si la coincidencia es parcial o total
+                printf( "Registro: %d\n", i+1 );
+                printf( "Nombre: %s\n", animal_buscado -> nombre );
+                printf( "Tipo: %s\n", animal_buscado -> tipo );
+                printf( "Edad: %d\n", animal_buscado -> edad );
+                printf( "Raza: %s\n", animal_buscado -> raza );
+                printf( "Estatura: %d\n", animal_buscado -> estatura );
+                printf( "Peso: %3.2f\n", animal_buscado -> peso );
+                printf( "Sexo: %c\n\n", animal_buscado -> sexo );
+                encontro=1;
+            }
+        }
+    }
+    if(!encontro){
+        printf( "El can con nombre %s no esta en los registros.\n\n", nombre );
+    }
+    fclose(dataFile);
+    free(animal_buscado);
+    confirmacion();
+}
+
 
 /*
  * Método: borrarRegistro
@@ -373,6 +430,7 @@ void leerOpcion(){
       borrarRegistro();
       break;
     case 4:
+      buscarRegistro();    
       break;
     case 5:
       exit(-1);
