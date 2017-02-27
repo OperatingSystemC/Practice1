@@ -1,8 +1,0 @@
- Nombre: sergio
- Tipo: pao
- Edad: 45
- Raza: sabueso
- Estatura: 12
- Peso: 45.000000
- Sexo: M
- Notas: 

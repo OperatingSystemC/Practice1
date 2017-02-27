@@ -1,8 +1,0 @@
- Nombre: Maria
- Tipo: Marciano
- Edad: 100
- Raza: Cabeciazul
- Estatura: 150
- Peso: 15.000000
- Sexo: H
- Notas: 

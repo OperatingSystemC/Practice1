@@ -1,8 +1,0 @@
- Nombre: Andrea
- Tipo: Marciano
- Edad: 25
- Raza: Cabeciroja
- Estatura: 180
- Peso: 30.000000
- Sexo: H
- Notas: 

@@ -10,3 +10,7 @@ Clone this repository on the command line
 $ git clone https://github.com/OperatingSystemC/Practice1.git
 $ cd Practice1 
 ```
+
+## Execution
+
+Execute this from the folder where was cloned.

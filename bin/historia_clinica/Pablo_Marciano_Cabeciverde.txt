@@ -1,8 +1,0 @@
- Nombre: Pablo
- Tipo: Marciano
- Edad: 300
- Raza: Cabeciverde
- Estatura: 200
- Peso: 20.000000
- Sexo: H
- Notas: 
